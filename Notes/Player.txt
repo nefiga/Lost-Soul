@@ -1,0 +1,15 @@
+---------Player----------
+
+-----General-----
+- Slot to hold one tool at a time (Need to be able to equip/un-equip new tools and a public way to know which tool is equipped)
+- Slots for armor and weapons (getter and setter methods)
+- Inventory that will hold lists of all the tools, items, weapons, ect.... (getter setter methods).
+- Stats health, strength, intellect, agility, ect.....
+- Abilities
+
+
+
+----Methods------
+update
+render
+init
