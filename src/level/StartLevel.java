@@ -1,14 +1,14 @@
 package level;
 
 import com.lust_gaming.engine.input.InputManager;
-import com.lust_gaming.engine.level.Level;
+import util.MainGame;
 
 import java.awt.*;
 
-public class StartLevel extends Level{
+public class StartLevel extends CustomLevel{
 
-    public StartLevel(String name, int width, int height, InputManager inputManager) {
-        super(name, width, height, inputManager);
+    public StartLevel(String name, String map, int width, int height, InputManager inputManager) {
+        super(name, map, width, height, inputManager);
     }
 
     @Override
@@ -23,12 +23,12 @@ public class StartLevel extends Level{
 
     @Override
     public void update() {
-
+        player.update();
     }
 
     @Override
     public void render(Graphics2D g) {
-        g.setColor(Color.white);
-        g.drawString("Testing", 50, 50);
+        renderMap(g, (int) MainGame.getXOffset(), (int) MainGame.getYOffset());
+        player.render(g);
     }
 }
