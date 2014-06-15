@@ -7,8 +7,10 @@ import java.awt.*;
 
 public class StartLevel extends CustomLevel{
 
-    public StartLevel(String name, String map, int width, int height, InputManager inputManager) {
-        super(name, map, width, height, inputManager);
+    public static final String NAME = "StartGame";
+
+    public StartLevel(String map, int width, int height, InputManager inputManager) {
+        super(map, width, height, inputManager);
     }
 
     @Override

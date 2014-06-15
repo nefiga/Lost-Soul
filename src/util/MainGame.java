@@ -43,10 +43,10 @@ public class MainGame extends Game {
 
     @Override
     public void initLevels() {
-        startLevel = new StartLevel("StartGame", "sweet_map.png", screenManager.getWidth(), screenManager.getHeight(), inputManager);
+        startLevel = new StartLevel("sweet_map.png", screenManager.getWidth(), screenManager.getHeight(), inputManager);
         startLevel.addPlayer(player);
-        levelHolder.addNewLevel(startLevel);
-        LevelHolder.setState(LevelHolder.getState("StartGame"));
+        levelHolder.addNewLevel(StartLevel.NAME, startLevel);
+        levelHolder.setCurrentLevel(StartLevel.NAME);
     }
 
     @Override

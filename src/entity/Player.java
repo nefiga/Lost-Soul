@@ -46,6 +46,19 @@ public class Player extends LivingEntity{
         if (velocityX != 0 || velocityY != 0) move(velocityX, velocityY);
     }
 
+    public void move(float moveX, float moveY) {
+        if (!collision(x + moveX, y)) x += moveX;
+        if (!collision(x, y + moveY)) y += moveY;
+    }
+
+    public boolean collision(float xa, float ya) {
+        if (level.getTile(xa, ya, false).solid()) return true;
+        if (level.getTile(xa + 63, ya, false).solid()) return true;
+        if (level.getTile(xa, ya + 63, false).solid()) return true;
+        if (level.getTile(xa + 63, ya + 63, false).solid()) return true;
+        return false;
+    }
+
     public void render(Graphics2D g) {
         g.drawImage(image, (int) x - (int) MainGame.getXOffset(), (int) y - (int) MainGame.getYOffset(), null);
     }
