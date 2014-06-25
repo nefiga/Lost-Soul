@@ -1,18 +1,15 @@
 package util;
 
-import com.lust_gaming.engine.game.Game;
-import com.lust_gaming.engine.input.GameAction;
-import com.lust_gaming.engine.level.LevelHolder;
-import com.lust_gaming.engine.tile.Tile;
 import entity.Player;
 import level.StartLevel;
 import tile.DirtTile;
 import tile.GrassTile;
+import tile.Tile;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class MainGame extends Game {
+public class MainGame extends GameLoop {
 
     // Levels
     StartLevel startLevel;
@@ -26,7 +23,7 @@ public class MainGame extends Game {
     @Override
     public void init() {
         tileSize = 64;
-        player = new Player("tiles/temp_tile.png", screenManager.getWidth() / 2, screenManager.getHeight() / 2, inputManager);
+        player = new Player("player1", "tiles/temp_tile.png", screenManager.getWidth() / 2, screenManager.getHeight() / 2, 64, 64, inputManager);
     }
 
     @Override

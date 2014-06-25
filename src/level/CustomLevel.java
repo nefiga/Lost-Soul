@@ -1,21 +1,24 @@
 package level;
 
-import com.lust_gaming.engine.game.Game;
-import com.lust_gaming.engine.input.InputManager;
-import com.lust_gaming.engine.level.Level;
-import com.lust_gaming.engine.tile.DefaultTile;
-import com.lust_gaming.engine.tile.Tile;
+import entity.MovableEntity;
 import entity.Player;
-import util.MainGame;
+import entity.UnmovableEntity;
+import tile.DefaultTile;
+import tile.Tile;
+import util.GameLoop;
+import util.InputManager;
 
 import java.awt.*;
 
 public class CustomLevel extends Level{
 
     protected Player player;
+    MovableEntity moved, moved1, moved2;
+    UnmovableEntity unmoved, unmoved1;
 
     public CustomLevel(String imageFile, int width, int height, InputManager inputManager) {
         super(imageFile, width, height, inputManager);
+
     }
 
     @Override
@@ -45,8 +48,8 @@ public class CustomLevel extends Level{
             y = (int) ya;
         }
         else {
-            x = Game.pixelToTile(xa);
-            y = Game.pixelToTile(ya);
+            x = GameLoop.pixelToTile(xa);
+            y = GameLoop.pixelToTile(ya);
         }
 
         if (x > imageWidth - 1 || x < 0 || y > imageHeight - 1 || y < 0) return DefaultTile.defaultTile;
@@ -58,7 +61,12 @@ public class CustomLevel extends Level{
     }
 
     public void addPlayer(Player player) {
-        this.player = player;
-        player.init(this);
+        this.player = player;player.init(this);
+        collision.addEntity(player.getName(), player);
+    }
+
+
+    public void addEntity() {
+
     }
 }

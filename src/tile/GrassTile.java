@@ -1,12 +1,11 @@
 package tile;
 
-import com.lust_gaming.engine.tile.Tile;
 
 public class GrassTile extends Tile{
 
-    public static Tile grassTile = new GrassTile("tiles/grass.png", 0xff006607);
+    public static Tile grassTile = new GrassTile("tiles/grass.png", 0xff006607, 1);
 
-    public GrassTile(String imageFile, int id) {
-        super(imageFile, id);
+    public GrassTile(String imageFile, int id, int durability) {
+        super(imageFile, id, durability);
     }
 }

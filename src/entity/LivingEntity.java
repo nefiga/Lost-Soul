@@ -1,16 +1,16 @@
 package entity;
 
-import com.lust_gaming.engine.level.Level;
+
+import level.Level;
 
 import java.awt.*;
 
 public class LivingEntity extends Entity {
 
     protected float velocityX = 0, velocityY = 0;
-    protected Rectangle rect;
 
-    public LivingEntity(String image, int x, int y) {
-        super(image, x, y);
+    public LivingEntity(String name, String image, int x, int y, int w, int h) {
+        super(name, image, x, y, w, h);
     }
 
     public void update() {
