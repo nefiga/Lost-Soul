@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class UnmovableEntity extends Entity{
 
-    public UnmovableEntity(String name, String image, int x, int y, int w, int h) {
+    public UnmovableEntity(String name, Image image, int x, int y, int w, int h) {
         super(name, image, x, y, w, h);
     }
 

@@ -1,5 +1,6 @@
 package entity;
 
+import item.Item;
 import level.Level;
 import util.ImageManager;
 
@@ -16,10 +17,10 @@ public class Entity {
     protected String name;
     protected boolean movable, removed;
 
-    public Entity(String name, String image, int x, int y, int w, int h) {
+    public Entity(String name, Image image, int x, int y, int w, int h) {
         this.x = x;
         this.y = y;
-        this.image = ImageManager.getImage(image);
+        this.image = image;
         this.name = name;
         rect = new Rectangle(x, y, w, h);
     }
@@ -43,17 +44,24 @@ public class Entity {
 
     }
 
-    public void interact(Level level, Entity entity) {}
-
-    public boolean push(String pushingEntity, int moveX, int moveY) {
-        return false;
+    public void interact(Level level, Entity entity) {
     }
 
-    public int pushX(String pushingEntity, int moveX) {
+    public void collectItem(Item item) {
+
+    }
+
+    public Item getItem() {
+        return null;
+    }
+
+    public int pushX(Entity pushingEntity, int moveX) {
         return 0;
     }
 
-    public int pushY(String pushingEntity, int moveY) { return 0;}
+    public int pushY(Entity pushingEntity, int moveY) {
+        return 0;
+    }
 
     public float getX() {
         return x;
@@ -75,11 +83,25 @@ public class Entity {
         return image;
     }
 
-    public boolean isMovable() { return movable; }
+    public boolean isMovable() {
+        return movable;
+    }
 
-    public boolean isRemoved() { return removed; }
+    public boolean isRemoved() {
+        return removed;
+    }
 
-    public void remove() { removed = true; }
+    public boolean canCollect() {
+        return false;
+    }
+
+    public boolean collectable() {
+        return false;
+    }
+
+    public void remove() {
+        removed = true;
+    }
 
     public void setPosition(int x, int y) {
         this.x = x;

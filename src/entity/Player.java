@@ -1,5 +1,10 @@
 package entity;
 
+import inventory.Inventory;
+import item.Item;
+import item.resource.ResourceItem;
+import item.tool.PickAxe;
+import item.tool.Tool;
 import level.Level;
 import util.GameAction;
 import util.InputManager;
@@ -11,14 +16,16 @@ import java.awt.event.KeyEvent;
 public class Player extends LivingEntity {
 
     InputManager inputManager;
+    protected Inventory inventory;
 
     // Input
     GameAction left, right, up, down, interact;
 
-    public Player(String name, String image, int x, int y, int w, int h, InputManager inputManager) {
+    public Player(String name, Image image, int x, int y, int w, int h, InputManager inputManager) {
         super(name, image, x, y, w, h);
         this.inputManager = inputManager;
         initInput();
+        inventory = new Inventory();
     }
 
     public void init(Level level) {
@@ -44,8 +51,8 @@ public class Player extends LivingEntity {
 
         updateInput();
 
-        if (velocityX != 0) x += level.moveX(name, (int) velocityX, null);
-        if (velocityY != 0)  y += level.moveY(name, (int) velocityY, null);
+        if (velocityX != 0) x += level.moveX(this, (int) velocityX, null);
+        if (velocityY != 0)  y += level.moveY(this, (int) velocityY, null);
     }
 
     private void updateInput() {
@@ -92,7 +99,16 @@ public class Player extends LivingEntity {
         level.getTile(interactX, interactY, false).interact(level, this, interactX, interactY);
     }
 
+    public void collectItem(Item item) {
+        inventory.addItem(item, 1);
+    }
+
+    public boolean canCollect() {
+        return true;
+    }
+
     public void render(Graphics2D g) {
         g.drawImage(image, (int) x - (int) MainGame.getXOffset(), (int) y - (int) MainGame.getYOffset(), null);
+        g.drawImage(PickAxe.woodPickAxe.getImage(), (int) x + 74, (int) y, null);
     }
 }

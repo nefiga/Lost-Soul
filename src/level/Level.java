@@ -22,6 +22,7 @@ public abstract class Level {
     protected int[] tileDurability;
     protected List<Tile> tiles = new ArrayList<Tile>();
     protected List<StringEntity> stringEntities = new ArrayList<StringEntity>();
+    protected List<Entity> entities = new ArrayList<Entity>();
 
     protected int imageWidth, imageHeight;
     protected final int width, height;
@@ -29,9 +30,10 @@ public abstract class Level {
 
     /**
      * Constructor for new Level.
-     * @param imageFile Name of the image file used to lay out the map.
-     * @param width Width of the screen.
-     * @param height Height of the screen.
+     *
+     * @param imageFile    Name of the image file used to lay out the map.
+     * @param width        Width of the screen.
+     * @param height       Height of the screen.
      * @param inputManager Reference to the InputManager.
      */
     public Level(String imageFile, int width, int height, InputManager inputManager) {
@@ -75,8 +77,9 @@ public abstract class Level {
 
     /**
      * Gets the Tile at xa + ya * {@code imageWidth} in the {@code map} array.
-     * @param xa The x position used to find the Tile in the {@code map} array.
-     * @param ya The x position used to find the Tile in the {@code map} array.
+     *
+     * @param xa            The x position used to find the Tile in the {@code map} array.
+     * @param ya            The x position used to find the Tile in the {@code map} array.
      * @param tilePrecision If the xa and ya variables passed in are in pixel precision or tile precision.
      * @return The Tile at the xa + ya * maps image width.
      */
@@ -85,8 +88,7 @@ public abstract class Level {
         if (tilePrecision) {
             x = (int) xa;
             y = (int) ya;
-        }
-        else {
+        } else {
             x = GameLoop.pixelToTile(xa);
             y = GameLoop.pixelToTile(ya);
         }
@@ -117,7 +119,8 @@ public abstract class Level {
 
     /**
      * Renders the map starting at the top left corner of the screen and the Tile at xp + yp * {@code imageWidth} in the {@code map} array.
-     * @param g Reference to Graphics2D.
+     *
+     * @param g  Reference to Graphics2D.
      * @param xp The x position used to find the Tile in the {@code map} array.
      * @param yp The y position used to find the TIle int the {@code map} array.
      */
@@ -140,6 +143,7 @@ public abstract class Level {
 
     /**
      * Adds a StringEntity to the {@code stringEntities}
+     *
      * @param entity The StringEntity to be added
      */
     public void addStringEntity(StringEntity entity) {
@@ -151,7 +155,7 @@ public abstract class Level {
      * Also removes any StringEntity that {@code isRemoved}
      */
     public void updateStringEntities() {
-        for (int i = 0 ; i < stringEntities.size(); i++) {
+        for (int i = 0; i < stringEntities.size(); i++) {
             StringEntity stringEntity = stringEntities.get(i);
             stringEntity.update();
             if (stringEntity.isRemoved()) stringEntities.remove(stringEntity);
@@ -167,14 +171,39 @@ public abstract class Level {
         }
     }
 
-    public boolean entityCollision(String name, int x, int y, String excludeBox) {
-        return collision.collision(name, x, y, excludeBox);
+    public void addEntity(Entity entity) {
+        entities.add(entity);
+        collision.addEntity(entity);
     }
 
-    public int moveX(String name, int x, String excludeBox) {
-        return collision.getMaxMoveX(name, x, excludeBox);
+    public void removeEntity(Entity entity) {
+        entities.remove(entity);
+        collision.removeEntity(entity);
     }
 
-    public int moveY(String name, int y, String excludeBox) { return collision.getMaxMoveY(name, y, excludeBox);}
+    public void updateEntities() {
+        for (int i = 0; i < entities.size(); i++) {
+            Entity entity = entities.get(i);
+            entity.update();
+            if (entity.isRemoved()) {
+                entities.remove(i);
+                collision.removeEntity(entity);
+            }
+        }
+    }
+
+    public void renderEntities(Graphics2D g) {
+        for (int i = 0; i < entities.size(); i++) {
+            entities.get(i).render(g);
+        }
+    }
+
+    public int moveX(Entity entity, int x, Entity excludeEntity) {
+        return collision.getMaxMoveX(entity, x, excludeEntity);
+    }
+
+    public int moveY(Entity entity, int y, Entity excludeEntity) {
+        return collision.getMaxMoveY(entity, y, excludeEntity);
+    }
 
 }

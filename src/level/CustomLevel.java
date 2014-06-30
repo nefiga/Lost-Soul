@@ -62,7 +62,7 @@ public class CustomLevel extends Level{
 
     public void addPlayer(Player player) {
         this.player = player;player.init(this);
-        collision.addEntity(player.getName(), player);
+        collision.addEntity(player);
     }
 
 

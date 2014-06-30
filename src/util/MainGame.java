@@ -23,7 +23,7 @@ public class MainGame extends GameLoop {
     @Override
     public void init() {
         tileSize = 64;
-        player = new Player("player1", "tiles/temp_tile.png", screenManager.getWidth() / 2, screenManager.getHeight() / 2, 64, 64, inputManager);
+        player = new Player("player1", ImageManager.getImage("tiles/temp_tile.png"), screenManager.getWidth() / 2, screenManager.getHeight() / 2, 64, 64, inputManager);
     }
 
     @Override

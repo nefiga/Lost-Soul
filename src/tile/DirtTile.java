@@ -1,7 +1,10 @@
 package tile;
 
-import entity.Entity;
+import entity.ItemEntity;
+import entity.LivingEntity;
 import entity.StringEntity;
+import item.resource.ResourceItem;
+import item.tool.PickAxe;
 import level.Level;
 import util.MainGame;
 
@@ -19,12 +22,29 @@ public class DirtTile extends Tile{
         return true;
     }
 
-    public void interact(Level level, Entity entity, int x, int y) {
+    int random = 0;
+    public void interact(Level level, LivingEntity entity, int x, int y) {
         int tileX = MainGame.pixelToTile(x);
         int tileY = MainGame.pixelToTile(y);
-        level.addStringEntity(new StringEntity("1", x - (int) MainGame.getXOffset(), y - (int) MainGame.getYOffset(), 50, StringEntity.Movement.UP, 3, Color.BLACK));
-        level.decreaseTileDurability(tileX, tileY, 1);
-        if (level.getTileDurability(tileX,  tileY) <= 0) level.setTile(tileX, tileY, GrassTile.grassTile);
+        int damage = 3;
+        if (entity.getEquippedTool() instanceof PickAxe) damage += entity.getEquippedTool().getDamage();
+        if (random == 0){
+            int startX =  x - (int) MainGame.getXOffset() - 10;
+            int startY = y - (int) MainGame.getYOffset();
+            level.addStringEntity(new StringEntity(Integer.toString(damage), startX, startY, 50, StringEntity.Movement.ARCH_LEFT, 3, Color.BLACK));
+            random++;
+        }
+        else {
+            int startX =  x - (int) MainGame.getXOffset() + 10;
+            int startY = y - (int) MainGame.getYOffset();
+            level.addStringEntity(new StringEntity(Integer.toString(damage), startX, startY, 50, StringEntity.Movement.ARCH_RIGHT, 3, Color.BLACK));
+            random = 0;
+        }
+        level.decreaseTileDurability(tileX, tileY, damage);
+        if (level.getTileDurability(tileX,  tileY) <= 0) {
+            level.setTile(tileX, tileY, GrassTile.grassTile);
+            level.addEntity(new ItemEntity(ResourceItem.wood.getName(), ResourceItem.wood, x, y, 32, 32));
+        }
     }
 
 }

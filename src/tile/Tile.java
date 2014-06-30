@@ -1,6 +1,7 @@
 package tile;
 
 import entity.Entity;
+import entity.LivingEntity;
 import level.Level;
 import util.ImageManager;
 
@@ -49,7 +50,7 @@ public class Tile {
     /**
      * Interacts with the Tile. There is interaction by default.
      */
-    public void interact(Level level, Entity entity, int x, int y) {
+    public void interact(Level level, LivingEntity entity, int x, int y) {
 
     }
 
