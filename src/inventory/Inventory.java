@@ -29,4 +29,12 @@ public class Inventory {
             items.remove(item);
         }
     }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public int[] getItemCount() {
+        return itemCount;
+    }
 }
