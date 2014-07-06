@@ -112,6 +112,7 @@ public class Collision {
             Rectangle rect1 = entity1.getRect();
 
             if (rect.intersects(rect1)) {
+                // Tries to collect the entity
                 if (entity.canCollect() && entity1.collectable()) {
                     entity.collectItem(entity1.getItem());
                     level.removeEntity(entity1);

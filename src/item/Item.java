@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class Item {
 
-    protected int id;
+    protected final int id;
     protected String name;
     protected Image image;
 
@@ -15,6 +15,8 @@ public class Item {
         this.image = ImageManager.getImage(image);
         this.id = id;
     }
+
+    public boolean canStack() {return false;}
 
     public int getID() {
         return id;

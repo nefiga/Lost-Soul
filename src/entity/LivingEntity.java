@@ -1,10 +1,8 @@
 package entity;
 
-
-import inventory.Inventory;
-import item.Item;
 import item.tool.Tool;
 import level.Level;
+import util.MainGame;
 
 import java.awt.*;
 
@@ -24,6 +22,24 @@ public class LivingEntity extends Entity {
 
     public void render(Graphics2D g) {
 
+    }
+
+    public void moveX(float move) {
+        int moveX = 0;
+        moveX = level.moveX(this, (int) move, null);
+        x += moveX;
+        MainGame.changeMouseOffsetX(moveX);
+}
+
+    public void moveY(float move) {
+        int moveY;
+        moveY = level.moveY(this, (int) move, null);
+        y += moveY;
+        MainGame.changeMouseOffsetY(moveY);
+    }
+
+    public void changeDirection(int direction) {
+        this.direction = direction;
     }
 
     public void init(Level level) {

@@ -6,7 +6,7 @@ import entity.UnmovableEntity;
 import tile.DefaultTile;
 import tile.Tile;
 import util.GameLoop;
-import util.InputManager;
+import input.InputManager;
 
 import java.awt.*;
 

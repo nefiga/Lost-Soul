@@ -3,7 +3,7 @@ package level;
 import entity.MovableEntity;
 import entity.UnmovableEntity;
 import util.ImageManager;
-import util.InputManager;
+import input.InputManager;
 import util.MainGame;
 
 import java.awt.*;

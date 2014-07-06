@@ -7,7 +7,7 @@ import tile.Tile;
 import util.Collision;
 import util.GameLoop;
 import util.ImageManager;
-import util.InputManager;
+import input.InputManager;
 
 import java.awt.*;
 import java.util.ArrayList;

@@ -5,8 +5,6 @@ import item.tool.material.Material;
 
 public class Tool extends Item {
 
-    public static Tool woodPickAxe = new PickAxe("WoodPickAxe", "wood_pick.png", 1, Material.wood);
-
     protected int damage = 15;
     protected Material material;
 
@@ -14,6 +12,8 @@ public class Tool extends Item {
         super(name, image, id);
         this.material = material;
     }
+
+    public boolean canStack() {return false;}
 
     public Material getMaterial() {
         return material;

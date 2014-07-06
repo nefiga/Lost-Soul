@@ -1,5 +1,7 @@
 package util;
 
+import input.InputManager;
+import input.InputUpdater;
 import level.LevelHolder;
 
 import java.awt.*;
@@ -7,11 +9,12 @@ import java.awt.*;
 public class GameLoop implements Runnable{
 
     protected InputManager inputManager;
-    protected ScreenManager screenManager;
+    protected static ScreenManager screenManager;
     protected LevelHolder levelHolder;
-    protected Thread thread;
+    protected InputUpdater inputUpdater;
+    protected static Thread thread;
 
-    private boolean running;
+    private static boolean running;
     protected static int tileSize;
 
     private static final DisplayMode POSSIBLE_MODES[] = {
@@ -42,6 +45,7 @@ public class GameLoop implements Runnable{
         window.setBackground(Color.green);
         window.setForeground(Color.blue);
         inputManager = new InputManager(screenManager.getFullScreenWindow());
+        inputUpdater = new InputUpdater();
     }
 
     /**
@@ -140,7 +144,7 @@ public class GameLoop implements Runnable{
     /**
      * Stops the main game loop. Also disposes of the window and stops the game Thread.
      */
-    public void stop() {
+    public static void stop() {
         running = false;
         screenManager.restoreScreen();
         System.exit(0);

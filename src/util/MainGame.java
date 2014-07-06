@@ -1,7 +1,9 @@
 package util;
 
 import entity.Player;
+import input.*;
 import level.StartLevel;
+import tile.DefaultTile;
 import tile.DirtTile;
 import tile.GrassTile;
 import tile.Tile;
@@ -15,27 +17,35 @@ public class MainGame extends GameLoop {
     StartLevel startLevel;
 
     // Inputs
-    GameAction exit;
+    private static GameInput gameInput;
 
     Player player;
     private static float xOffset, yOffset;
+    private static int mouseOffsetX = 0, mouseOffsetY = 0;
+    public static int centerX, centerY;
 
     @Override
     public void init() {
         tileSize = 64;
-        player = new Player("player1", ImageManager.getImage("tiles/temp_tile.png"), screenManager.getWidth() / 2, screenManager.getHeight() / 2, 64, 64, inputManager);
+        gameInput = new GameInput(inputManager);
+        player = new Player("player1", ImageManager.getImage("tiles/temp_tile.png"), screenManager.getWidth() / 2, screenManager.getHeight() / 2, 64, 64);
+        PlayerInput playerInput = new PlayerInput(player, gameInput);
+        InputUpdater.addInput(PlayerInput.getName(), playerInput);
+        InputUpdater.setCurrentInput(PlayerInput.getName());
+        centerX = screenManager.getWidth() / 2;
+        centerY = screenManager.getHeight() / 2;
     }
 
     @Override
     public void initInput() {
-        exit = new GameAction("exit");
-        inputManager.mapToKey(exit, KeyEvent.VK_ESCAPE);
+
     }
 
     @Override
     public void initTile() {
         Tile.addTile(GrassTile.grassTile);
         Tile.addTile(DirtTile.dirtTile);
+        Tile.addTile(DefaultTile.defaultTile);
     }
 
     @Override
@@ -49,12 +59,11 @@ public class MainGame extends GameLoop {
     @Override
     public void update() {
         xOffset = player.getX() - screenManager.getWidth() / 2;
-        yOffset = player.getY() - screenManager.getHeight() / 2 ;
+        yOffset = player.getY() - screenManager.getHeight() / 2;
 
+        inputUpdater.update();
         levelHolder.update();
 
-        // Exit game
-        if (exit.isPressed()) stop();
     }
 
     @Override
@@ -67,11 +76,31 @@ public class MainGame extends GameLoop {
         game.start();
     }
 
+    public static GameInput getGameInput() {
+        return gameInput;
+    }
+
     public static float getXOffset() {
         return xOffset;
     }
 
     public static float getYOffset() {
         return yOffset;
+    }
+
+    public static int getMouseOffsetX() {
+        return mouseOffsetX;
+    }
+
+    public static int getMouseOffsetY() {
+        return mouseOffsetY;
+    }
+
+    public static void changeMouseOffsetX(int x) {
+        mouseOffsetX += x;
+    }
+
+    public static void changeMouseOffsetY(int y) {
+        mouseOffsetY += y;
     }
 }

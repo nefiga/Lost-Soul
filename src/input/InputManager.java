@@ -1,4 +1,6 @@
-package util;
+package input;
+
+import util.GameAction;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -33,7 +35,7 @@ public class InputManager implements KeyListener, MouseListener, MouseMotionList
     private static GameAction[] keyActions = new GameAction[NUM_KEY_CODES];
     private static GameAction[] mouseActions = new GameAction[NUM_MOUSE_CODES];
 
-    private Point mouseLocation;
+    private static Point mouseLocation;
     private Point centerLocation;
     private Component comp;
 
@@ -42,6 +44,7 @@ public class InputManager implements KeyListener, MouseListener, MouseMotionList
      */
     public InputManager(Component comp) {
         this.comp = comp;
+        mouseLocation = new Point();
 
         //  Register mouse and key listeners.
         comp.addKeyListener(this);
@@ -188,7 +191,7 @@ public class InputManager implements KeyListener, MouseListener, MouseMotionList
      *
      * @return mouse x position.
      */
-    public int getMouseX() {
+    public static int getMouseX() {
         return mouseLocation.x;
     }
 
@@ -197,7 +200,7 @@ public class InputManager implements KeyListener, MouseListener, MouseMotionList
      *
      * @return mouse y position.
      */
-    public int getMouseY() {
+    public static int getMouseY() {
         return mouseLocation.y;
     }
 
@@ -300,7 +303,7 @@ public class InputManager implements KeyListener, MouseListener, MouseMotionList
 
     @Override
     public void mouseMoved(MouseEvent e) {
-
+        mouseLocation.setLocation(e.getX(), e.getY());
     }
 
     @Override
