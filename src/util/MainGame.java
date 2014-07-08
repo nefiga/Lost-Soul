@@ -3,10 +3,7 @@ package util;
 import entity.Player;
 import input.*;
 import level.StartLevel;
-import tile.DefaultTile;
-import tile.DirtTile;
-import tile.GrassTile;
-import tile.Tile;
+import tile.*;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -46,6 +43,7 @@ public class MainGame extends GameLoop {
         Tile.addTile(GrassTile.grassTile);
         Tile.addTile(DirtTile.dirtTile);
         Tile.addTile(DefaultTile.defaultTile);
+        Tile.addTile(DirtWallTile.dirtWall);
     }
 
     @Override

@@ -1,12 +1,10 @@
 package tile;
 
-import entity.Entity;
 import entity.LivingEntity;
 import level.Level;
 import util.ImageManager;
 
 import java.awt.*;
-import java.awt.List;
 import java.util.*;
 
 public class Tile {
@@ -54,6 +52,14 @@ public class Tile {
 
     }
 
+    public void place(Level level, int x, int y) {
+
+    }
+
+    public int placedTouching(int x, int y) {
+        return 0;
+    }
+
     /**
      * Adds the tile to the {@link #allTiles} ArrayList. Tiles must be added to this list for the game to know they exist.
      * @param tile A static reference of the tile to be added to the {@link #allTiles} ArrayList.
@@ -74,7 +80,7 @@ public class Tile {
      *
      * @return Image of this tile.
      */
-    public Image getImage() {
+    public Image getImage(Level level, int x, int y) {
         return image;
     }
 

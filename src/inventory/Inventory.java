@@ -4,8 +4,7 @@ import entity.Player;
 import input.InputManager;
 import item.Item;
 import item.gear.Gear;
-import item.gear.armor.Armor;
-import item.gear.armor.ChestArmor;
+import item.gear.armor.*;
 import item.gear.weapon.Weapon;
 import util.ImageManager;
 
@@ -120,14 +119,12 @@ public class Inventory {
             if (slotX >= 0 && slotX < 2 && slotY >= 0 && slotY < 3) {
                 Item gearSlot = gear[slotX][slotY];
                 if (holding == null && gearSlot != null) {
-                    System.out.println("Trying to pick up gear");
                     holding = gearSlot;
                     gear[slotX][slotY] = null;
                 }
 
                 // Placing Gear in the corresponding gear slot
-                else if (holding instanceof Gear && gearSlot == null) {
-                    System.out.println("Trying to place gear");
+                else if (canPlaceInGearSlot(holding, slotX, slotY) && gearSlot == null) {
                     gear[slotX][slotY] = holding;
                     holding = null;
                 }
@@ -157,6 +154,35 @@ public class Inventory {
     }
 
     /**
+     * Checks if the Item being held matches the gear slot.
+     */
+    private boolean canPlaceInGearSlot(Item item, int slotX, int slotY) {
+        switch (slotX) {
+            case 0:
+                switch (slotY) {
+                    case 0: if(item instanceof ChestArmor) return true;
+                        break;
+                    case 1: if (item instanceof LegArmor) return true;
+                        break;
+                    case 2: if (item instanceof BootArmor) return true;
+                        break;
+                }
+                break;
+            case 1:
+                switch (slotY) {
+                    case 0: if (item instanceof HeadArmor) return true;
+                        break;
+                    case 1: if (item instanceof Weapon) return true;
+                        break;
+                    case 2: if (item instanceof FingerArmor) return true;
+                        break;
+                }
+                break;
+        }
+        return false;
+    }
+
+    /**
      * Checks if there is room for the Item to be added
      *
      * @param item   Item to be added
@@ -178,10 +204,6 @@ public class Inventory {
             }
         }
         return false;
-    }
-
-    public void addGearItem(Item item) {
-
     }
 
     public void removeItem(Item item, int amount) {

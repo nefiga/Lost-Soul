@@ -132,7 +132,7 @@ public abstract class Level {
 
         for (int y = startY; y < endY; y++) {
             for (int x = startX; x < endX; x++) {
-                g.drawImage(getTile(x, y, true).getImage(), x * tileSize - xp, y * tileSize - yp, null);
+                g.drawImage(getTile(x, y, true).getImage(this, x, y), x * tileSize - xp, y * tileSize - yp, null);
             }
         }
     }

@@ -8,7 +8,4 @@ public class DefaultTile extends Tile {
         super(imageFile, id, durability);
     }
 
-    public boolean solid() {
-        return true;
-    }
 }
