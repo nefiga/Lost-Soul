@@ -7,7 +7,11 @@ import java.awt.event.KeyEvent;
 public class GameInput {
     protected InputManager inputManager;
 
-    protected GameAction left, right, up, down, interact, openInventory, action1, action2, action3, action4, leftClick, exit;
+    // Keyboard inputs
+    protected GameAction left, right, up, down, interact, openInventory, action1, action2, action3, action4, exit;
+
+    // Mouse inputs
+    protected GameAction leftClick, rightClick;
 
     public GameInput(InputManager inputManager) {
         this.inputManager = inputManager;
@@ -29,8 +33,10 @@ public class GameInput {
         action2 = new GameAction("action2", GameAction.DETECT_INITIAL_PRESS_ONLY);
         action3 = new GameAction("action3", GameAction.DETECT_INITIAL_PRESS_ONLY);
         action4 = new GameAction("action4", GameAction.DETECT_INITIAL_PRESS_ONLY);
-        leftClick = new GameAction("leftClick", GameAction.DETECT_INITIAL_PRESS_ONLY);
         exit = new GameAction("exit", GameAction.DETECT_INITIAL_PRESS_ONLY);
+
+        leftClick = new GameAction("leftClick", GameAction.DETECT_INITIAL_PRESS_ONLY);
+        rightClick = new GameAction("rightClick", GameAction.DETECT_INITIAL_PRESS_ONLY);
 
         inputManager.mapToKey(left, KeyEvent.VK_A);
         inputManager.mapToKey(right, KeyEvent.VK_D);
@@ -42,8 +48,10 @@ public class GameInput {
         inputManager.mapToKey(action2, KeyEvent.VK_2);
         inputManager.mapToKey(action3, KeyEvent.VK_3);
         inputManager.mapToKey(action4, KeyEvent.VK_4);
-        inputManager.mapToMouse(leftClick, InputManager.MOUSE_BUTTON_1);
         inputManager.mapToKey(exit, KeyEvent.VK_ESCAPE);
+
+        inputManager.mapToMouse(leftClick, InputManager.MOUSE_BUTTON_1);
+        inputManager.mapToMouse(rightClick, InputManager.MOUSE_BUTTON_3);
     }
 
     public int getMouseX() {

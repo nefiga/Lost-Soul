@@ -14,7 +14,8 @@ public class InventoryInput extends Input{
     }
 
     public void update() {
-        if (gameInput.leftClick.isPressed()) inventory.clickItemSlot(InputManager.getMouseX(), InputManager.getMouseY());
+        if (gameInput.leftClick.isPressed()) inventory.leftClick(InputManager.getMouseX(), InputManager.getMouseY());
+        if (gameInput.rightClick.isPressed()) inventory.rightClick(InputManager.getMouseX(), InputManager.getMouseY());
         if (gameInput.exit.isPressed()) inventory.closeInventory();
         if (gameInput.openInventory.isPressed()) inventory.closeInventory();
     }

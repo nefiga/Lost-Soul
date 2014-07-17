@@ -6,7 +6,8 @@ import java.awt.*;
 
 public class Item {
 
-    protected final int id;
+    protected int id;
+    protected int maxStackSize = 1;
     protected String name;
     protected Image image;
 
@@ -14,6 +15,10 @@ public class Item {
         this.name = name;
         this.image = ImageManager.getImage(image);
         this.id = id;
+    }
+
+    public void setMaxStackSize(int maxSize) {
+        this.maxStackSize = maxSize;
     }
 
     public boolean canStack() {return false;}

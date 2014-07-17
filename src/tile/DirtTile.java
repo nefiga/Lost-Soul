@@ -2,6 +2,7 @@ package tile;
 
 import entity.ItemEntity;
 import entity.LivingEntity;
+import entity.Player;
 import entity.StringEntity;
 import item.resource.ResourceItem;
 import item.tool.PickAxe;
@@ -23,7 +24,7 @@ public class DirtTile extends Tile{
     }
 
     int random = 0;
-    public void interact(Level level, LivingEntity entity, int x, int y) {
+    public void interact(Level level, Player entity, int x, int y) {
         int tileX = MainGame.pixelToTile(x);
         int tileY = MainGame.pixelToTile(y);
         int damage = 3;

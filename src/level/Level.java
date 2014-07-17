@@ -20,6 +20,7 @@ public abstract class Level {
 
     protected int[] map;
     protected int[] tileDurability;
+    protected int[] tileData;
     protected List<Tile> tiles = new ArrayList<Tile>();
     protected List<StringEntity> stringEntities = new ArrayList<StringEntity>();
     protected List<Entity> entities = new ArrayList<Entity>();
@@ -44,6 +45,7 @@ public abstract class Level {
         imageHeight = image.getHeight(null);
         map = MapGenerator.generateMap(ImageManager.getBufferedImage(imageFile), imageWidth, imageHeight);
         tileDurability = new int[map.length];
+        tileData = new int[map.length];
         tiles = MapGenerator.getTiles(this, ImageManager.getBufferedImage(imageFile), imageWidth, imageHeight);
         this.inputManager = inputManager;
         tileSize = GameLoop.getTileSize();
@@ -109,8 +111,19 @@ public abstract class Level {
         tileDurability[position] = durability;
     }
 
+    public void setTileData(int x, int y, int data) {
+        tileData[x + y * imageWidth] = data;
+    }
+
     public int getTileDurability(int x, int y) {
         return tileDurability[x + y * imageWidth];
+    }
+
+    public int getTileData(int x, int y)  {
+        if (x + y >= 0 && x + y * imageWidth < map.length) {
+            return tileData[x + y * imageWidth];
+        }
+        return 0;
     }
 
     public void decreaseTileDurability(int x, int y, int amount) {

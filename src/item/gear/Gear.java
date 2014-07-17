@@ -1,15 +1,21 @@
 package item.gear;
 
+import classes.Stats;
 import item.Item;
 
 public class Gear extends Item{
 
-    private int stanima, strength, agility;
+    private int[] stats = new int[Stats.TOTAL];
 
-    public Gear(String name, String image, int id, int stamina, int strength, int agility) {
+    public Gear(String name, String image, int id, int stamina, int strength, int intellect, int agility) {
         super(name, image, id);
-        this.stanima = stamina;
-        this.strength = strength;
-        this.agility = agility;
+        stats[Stats.STAMINA] = stamina;
+        stats[Stats.STRENGTH] = strength;
+        stats[Stats.INTELLECT] = intellect;
+        stats[Stats.AGILITY] = agility;
+    }
+
+    public int[] getStats() {
+        return stats;
     }
 }

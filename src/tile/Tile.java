@@ -1,6 +1,7 @@
 package tile;
 
 import entity.LivingEntity;
+import entity.Player;
 import level.Level;
 import util.ImageManager;
 
@@ -9,6 +10,7 @@ import java.util.*;
 
 public class Tile {
 
+    protected final int none = -1, top = 0, right = 1, bottom = 2, left = 3;
     protected Image image;
     protected int durability;
     private int id;
@@ -48,15 +50,11 @@ public class Tile {
     /**
      * Interacts with the Tile. There is interaction by default.
      */
-    public void interact(Level level, LivingEntity entity, int x, int y) {
+    public void interact(Level level, Player entity, int x, int y) {
 
     }
 
-    public void place(Level level, int x, int y) {
-
-    }
-
-    public int placedTouching(int x, int y) {
+    public int touchingTiles(Level level, int x, int y) {
         return 0;
     }
 

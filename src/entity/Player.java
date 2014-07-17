@@ -1,11 +1,15 @@
 package entity;
 
 import actionbar.ActionBar;
+import classes.PlayerClass;
 import input.*;
 import inventory.Inventory;
 import item.Item;
+import item.ItemStack;
+import item.gear.Gear;
 import item.gear.weapon.Sword;
 import item.tool.PickAxe;
+import item.tool.Tool;
 import level.Level;
 import util.MainGame;
 
@@ -19,18 +23,17 @@ public class Player extends LivingEntity {
     private ActionBar actionbar;
 
 
-    public Player(String name, Image image, int x, int y, int w, int h) {
-        super(name, image, x, y, w, h);
+    public Player(String name, Image image, PlayerClass playerClass, int x, int y, int w, int h) {
+        super(name, image, playerClass, x, y, w, h);
         inventory = new Inventory(this, (int) (x - MainGame.getXOffset()), (int) (y - MainGame.getYOffset()));
         inventoryInput = new InventoryInput(inventory, MainGame.getGameInput());
         InputUpdater.addInput(InventoryInput.getName(), inventoryInput);
         actionbar = new ActionBar(20, y * 2 - 92);
-        actionbar.addTool(PickAxe.woodPickAxe);
-        equip(actionbar.selectedTool());
+        this.playerClass = playerClass;
         for (int i = 0; i < 5; i++) {
-            inventory.canAddItem(PickAxe.woodPickAxe, 1);
+            inventory.canAddItem(new ItemStack(PickAxe.woodPickAxe, 1));
         }
-        inventory.canAddItem(Sword.jaggedSword, 1);
+        inventory.canAddItem(new ItemStack(Sword.jaggedSword, 1));
     }
 
     public void init(Level level) {
@@ -42,15 +45,6 @@ public class Player extends LivingEntity {
     }
 
     public void interact(int x, int y) {
-
-        // Check to make sure click is with in rage of player and also
-        // click is in front of the player
-        if (direction == 0) {
-        } else if (direction == 1) {
-        } else if (direction == 2) {
-        } else if (direction == 3) {
-        }
-
         if (level.interactWithEntity(this, x, y)) return;
 
         level.getTile(x, y, false).interact(level, this, x, y);
@@ -66,9 +60,30 @@ public class Player extends LivingEntity {
         InputUpdater.setCurrentInput(PlayerInput.getName());
     }
 
+    public void equipGear(Gear gear) {
+        int[] stats = gear.getStats();
+        for (int i = 0; i < stats.length; i++) {
+            playerClass.changeStat(i, stats[i]);
+        }
+    }
+
+    public void unequipGear(Gear gear) {
+        int[] stats = gear.getStats();
+        for (int i = 0; i < stats.length; i++) {
+            playerClass.changeStat(i, -stats[i]);
+        }
+    }
+
+    public Tool getEquippedTool() {
+        return actionbar.getCurrentTool();
+    }
+
     public void setActionbarSlot(int slot) {
         actionbar.setCurrentSlot(slot);
-        equip(actionbar.selectedTool());
+    }
+
+    public ItemStack[] getTools() {
+        return actionbar.getTools();
     }
 
     public Level getLevel() {
@@ -80,7 +95,7 @@ public class Player extends LivingEntity {
     }
 
     public void collectItem(Item item) {
-        inventory.canAddItem(item, 1);
+        inventory.canAddItem(new ItemStack(item, 1));
     }
 
     public boolean canCollect() {
@@ -88,11 +103,13 @@ public class Player extends LivingEntity {
     }
 
     public void render(Graphics2D g) {
-        g.drawImage(image, MainGame.centerX, MainGame.centerY, null);
 
         if (inventoryOpen) {
             inventory.render(g);
         }
-        actionbar.render(g);
+        else {
+            g.drawImage(image, MainGame.centerX, MainGame.centerY, null);
+            actionbar.render(g);
+        }
     }
 }

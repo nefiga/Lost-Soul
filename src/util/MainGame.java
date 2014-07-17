@@ -1,5 +1,6 @@
 package util;
 
+import classes.PlayerClass;
 import entity.Player;
 import input.*;
 import level.StartLevel;
@@ -25,7 +26,7 @@ public class MainGame extends GameLoop {
     public void init() {
         tileSize = 64;
         gameInput = new GameInput(inputManager);
-        player = new Player("player1", ImageManager.getImage("tiles/temp_tile.png"), screenManager.getWidth() / 2, screenManager.getHeight() / 2, 64, 64);
+        player = new Player("player1", ImageManager.getImage("tiles/temp_tile.png"), PlayerClass.warrior, screenManager.getWidth() / 2, screenManager.getHeight() / 2, 64, 64);
         PlayerInput playerInput = new PlayerInput(player, gameInput);
         InputUpdater.addInput(PlayerInput.getName(), playerInput);
         InputUpdater.setCurrentInput(PlayerInput.getName());

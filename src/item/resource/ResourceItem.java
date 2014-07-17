@@ -8,5 +8,10 @@ public class ResourceItem extends Item {
 
     public ResourceItem(String name, String image, int id) {
         super(name, image, id);
+        setMaxStackSize(50);
+    }
+
+    public boolean canStack() {
+        return true;
     }
 }

@@ -1,5 +1,6 @@
 package entity;
 
+import classes.PlayerClass;
 import item.tool.Tool;
 import level.Level;
 import util.MainGame;
@@ -8,11 +9,11 @@ import java.awt.*;
 
 public class LivingEntity extends Entity {
 
-    protected Tool equipped;
+    protected PlayerClass playerClass;
 
     protected float velocityX = 0, velocityY = 0;
 
-    public LivingEntity(String name, Image image, int x, int y, int w, int h) {
+    public LivingEntity(String name, Image image, PlayerClass playerClass, int x, int y, int w, int h) {
         super(name, image, x, y, w, h);
     }
 
@@ -25,7 +26,7 @@ public class LivingEntity extends Entity {
     }
 
     public void moveX(float move) {
-        int moveX = 0;
+        int moveX;
         moveX = level.moveX(this, (int) move, null);
         x += moveX;
         MainGame.changeMouseOffsetX(moveX);
@@ -54,14 +55,6 @@ public class LivingEntity extends Entity {
         return velocityY;
     }
 
-    public Tool getEquippedTool() {
-        return equipped;
-    }
-
-    public void equip(Tool tool) {
-        equipped = tool;
-    }
-
     public boolean canCollect() {
         return false;
     }
@@ -73,4 +66,8 @@ public class LivingEntity extends Entity {
     public void setVelocityY(float velocityY) {
         this.velocityY = velocityY;
     }
+
+    public int getStat(int stat) {return playerClass.getStat(stat);}
+
+    public int getSecondaryStat(int stat) { return playerClass.getSecondaryStat(stat);}
 }
